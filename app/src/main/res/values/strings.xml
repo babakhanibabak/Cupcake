@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Cupcake</string>
+    <string name="order_cupcake">Order Cupcake</string>
+    <string name="One_cupcake">One Cupcake</string>
+    <string name="Six_cupcake">Six Cupcakes</string>
+    <string name="Twelve_cupcakes">Twelve Cupcakes</string>
 </resources>
