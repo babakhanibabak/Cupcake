@@ -4,4 +4,6 @@
     <string name="One_cupcake">One Cupcake</string>
     <string name="Six_cupcake">Six Cupcakes</string>
     <string name="Twelve_cupcakes">Twelve Cupcakes</string>
+    <string name="Cancel">Cancel</string>
+    <string name="Next">Next</string>
 </resources>
