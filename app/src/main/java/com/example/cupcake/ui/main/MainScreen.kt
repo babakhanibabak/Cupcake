@@ -1,31 +1,26 @@
-package com.example.cupcake.ui
+package com.example.cupcake.ui.main
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.cupcake.R
+import com.example.cupcake.ui.component.CupCakeAppBar
+import com.example.cupcake.ui.component.CupcakeScreensTitles
 import com.example.cupcake.ui.component.MyButtons
 import com.example.cupcake.ui.theme.CupcakeTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
+
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier,
@@ -33,14 +28,9 @@ fun MainScreen(
     onSixCupcakesClick: () -> Unit = {},
     onTwelveCupcakesClick: () -> Unit = {}
 ) {
-    Scaffold(modifier = modifier.padding()) { paddingValues ->
-        TopAppBar(modifier = Modifier
-            .padding(paddingValues)
-            .background(color = Color.Blue),
-            colors = TopAppBarDefaults.topAppBarColors(containerColor = colorResource(id = R.color.Pink)),
-            title = { Text(text = "Cupcake") })
+    CupCakeAppBar(currentScreen = CupcakeScreensTitles.Flavor )
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .padding(top = 100.dp, start = 16.dp, end = 16.dp, bottom = 8.dp)
                 .fillMaxSize(),
             verticalArrangement = Arrangement.Center,
@@ -75,7 +65,7 @@ fun MainScreen(
 
         }
     }
-}
+
 
 
 @Preview
