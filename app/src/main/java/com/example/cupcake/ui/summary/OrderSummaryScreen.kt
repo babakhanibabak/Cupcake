@@ -3,7 +3,9 @@ package com.example.cupcake.ui.summary
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.HorizontalDivider
@@ -20,21 +22,20 @@ import com.example.cupcake.R
 import com.example.cupcake.data.OrderUiState
 import com.example.cupcake.ui.component.CupCakeAppBar
 import com.example.cupcake.ui.component.CupcakeScreensTitles
+import com.example.cupcake.ui.component.MyButtons
 import com.example.cupcake.ui.component.StatementSubtotal
 import com.example.cupcake.ui.theme.CupcakeTheme
 
 @Composable
 fun OrderSummaryScreen(
     modifier: Modifier = Modifier,
-    onCancelClicked: () -> Unit={},
-    onSendOrderClicked: () -> Unit={},
-    orderUiState: OrderUiState= OrderUiState()
+    onCancelClicked: () -> Unit,
+    onSendOrderClicked: (String, String) -> Unit,
+    orderUiState: OrderUiState
 ) {
     val resources = LocalContext.current.resources
     val numberOfCupCakes = resources.getQuantityString(
-        R.plurals.cupcakes,
-        orderUiState.quantity,
-        orderUiState.quantity
+        R.plurals.cupcakes, orderUiState.quantity, orderUiState.quantity
     )
     val orderSummary = stringResource(
         id = R.string.order_details,
@@ -44,6 +45,7 @@ fun OrderSummaryScreen(
         orderUiState.quantity
 
     )
+    val newOrder = stringResource(id = R.string.new_cupcake_order)
     val items = listOf(
         Pair(stringResource(R.string.quantity), numberOfCupCakes),
         Pair(stringResource(id = R.string.flavor), orderUiState.flavor),
@@ -64,7 +66,23 @@ fun OrderSummaryScreen(
         }
         Spacer(modifier = Modifier.size(8.dp))
         StatementSubtotal(modifier = Modifier.align(Alignment.End), subtotal = orderUiState.price)
+Column(
+    modifier = modifier
+        .padding(top = 400.dp)
+        .fillMaxSize()) {
+
+
+        MyButtons(
+            modifier=Modifier.fillMaxWidth(),
+            text = stringResource(id = R.string.send),
+            onClick = { onSendOrderClicked(orderSummary, newOrder) })
+    MyButtons(
+        modifier=Modifier.fillMaxWidth(),
+        text = stringResource(id = R.string.cancel),
+        onClick = onCancelClicked
+    )
     }
+}
 }
 
 
@@ -72,6 +90,13 @@ fun OrderSummaryScreen(
 @Composable
 private fun OrderSummaryScreenPreview() {
     CupcakeTheme {
-        OrderSummaryScreen()
+        OrderSummaryScreen(orderUiState = OrderUiState(
+            0, "Text", "Text", "$300.00"
+        ),
+            onSendOrderClicked = { subject: String, summary: String -> },
+            onCancelClicked = {},
+            modifier = Modifier.fillMaxHeight()
+        )
+
     }
 }
