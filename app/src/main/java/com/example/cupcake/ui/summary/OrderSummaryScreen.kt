@@ -17,6 +17,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Text
 import com.example.cupcake.R
 import com.example.cupcake.data.OrderUiState
@@ -24,15 +26,25 @@ import com.example.cupcake.ui.component.CupCakeAppBar
 import com.example.cupcake.ui.component.CupcakeScreensTitles
 import com.example.cupcake.ui.component.MyButtons
 import com.example.cupcake.ui.component.StatementSubtotal
+import com.example.cupcake.ui.navigation.BaseRoute
 import com.example.cupcake.ui.theme.CupcakeTheme
 
 @Composable
 fun OrderSummaryScreen(
-    modifier: Modifier = Modifier,
-    onCancelClicked: () -> Unit,
-    onSendOrderClicked: (String, String) -> Unit,
-    orderUiState: OrderUiState
+    navController: NavHostController
 ) {
+    OrderSummaryScreenContent(
+        onCancelClicked = {navController.navigate(BaseRoute.Graph.MainScreen)},
+//        onSendOrderClicked = {navController.navigate(BaseRoute.Graph.Root)}
+        )
+}
+@Composable
+fun OrderSummaryScreenContent(
+    modifier: Modifier = Modifier,
+    onCancelClicked: () -> Unit={},
+    onSendOrderClicked: (String, String) -> Unit={ s: String, s1: String -> },
+) {
+    val orderUiState=OrderUiState()
     val resources = LocalContext.current.resources
     val numberOfCupCakes = resources.getQuantityString(
         R.plurals.cupcakes, orderUiState.quantity, orderUiState.quantity
@@ -85,18 +97,18 @@ Column(
 }
 }
 
-
-@Preview
-@Composable
-private fun OrderSummaryScreenPreview() {
-    CupcakeTheme {
-        OrderSummaryScreen(orderUiState = OrderUiState(
-            0, "Text", "Text", "$300.00"
-        ),
-            onSendOrderClicked = { subject: String, summary: String -> },
-            onCancelClicked = {},
-            modifier = Modifier.fillMaxHeight()
-        )
-
-    }
-}
+//
+//@Preview
+//@Composable
+//private fun OrderSummaryScreenPreview() {
+//    CupcakeTheme {
+//        OrderSummaryScreenContent(orderUiState = OrderUiState(
+//            0, "Text", "Text", "$300.00"
+//        ),
+//            onSendOrderClicked = { subject: String, summary: String -> },
+//            onCancelClicked = {},
+//            modifier = Modifier.fillMaxHeight()
+//        )
+//
+//    }
+//}
