@@ -19,16 +19,24 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.cupcake.R
 import com.example.cupcake.ui.component.CupCakeAppBar
 import com.example.cupcake.ui.component.CupcakeScreensTitles
 import com.example.cupcake.ui.component.MyButtons
 import com.example.cupcake.ui.component.RadioGroup
 import com.example.cupcake.ui.component.StatementSubtotal
+import com.example.cupcake.ui.navigation.BaseRoute
 import com.example.cupcake.ui.theme.CupcakeTheme
 
 @Composable
 fun FlavorScreen(
+    navController: NavHostController
+) {
+    FlavorScreenContent(onNextClick = {navController.navigate(BaseRoute.Graph.Root)},)}
+
+@Composable
+fun FlavorScreenContent(
     modifier: Modifier = Modifier,
     onNextClick: () -> Unit = {},
     onCancelClick: () -> Unit = {},
@@ -76,6 +84,6 @@ fun FlavorScreen(
 @Composable
 private fun FlavorScreenPreview() {
     CupcakeTheme {
-        FlavorScreen()
+        FlavorScreenContent()
     }
 }
