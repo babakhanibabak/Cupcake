@@ -2,8 +2,8 @@ package com.example.cupcake.ui.navigation
 
 import kotlinx.serialization.Serializable
 
-sealed class BaseRoute {
-    sealed class Graph:BaseRoute(){
+ sealed class BaseRoute {
+     sealed class Graph:BaseRoute(){
         @Serializable
         data object Root:Graph()
         @Serializable
@@ -16,8 +16,9 @@ sealed class BaseRoute {
     }
 
 
-    sealed class OrderScreen:BaseRoute()
+     sealed class OrderScreen:BaseRoute()
 
-    sealed class FlavorScreen:BaseRoute(){}
+    sealed class FlavorScreen:BaseRoute()
+     sealed class PickUpDateScreen:BaseRoute()
 
 }
