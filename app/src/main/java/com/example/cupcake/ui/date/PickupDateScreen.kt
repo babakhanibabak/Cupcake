@@ -19,17 +19,25 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.cupcake.R
 import com.example.cupcake.ui.component.CupCakeAppBar
 import com.example.cupcake.ui.component.CupcakeScreensTitles
 import com.example.cupcake.ui.component.MyButtons
-import com.example.cupcake.ui.component.RadioGroup
+import com.example.cupcake.ui.component.RadioGroup2
 import com.example.cupcake.ui.component.StatementSubtotal
+import com.example.cupcake.ui.component.pickDate
+import com.example.cupcake.ui.navigation.BaseRoute
 import com.example.cupcake.ui.theme.CupcakeTheme
 
 @Composable
-fun PickUpDateScreen() {
-    PickUpDateScreenContent()
+fun PickUpDateScreen(
+    navController: NavHostController
+) {
+    PickUpDateScreenContent(
+onCancelClick = {navController.navigate(BaseRoute.Graph.MainScreen)},
+        //onNextClick = {navController.navigate(BaseRoute.OrderScreen)}
+    )
 }
 
 @Composable
@@ -41,6 +49,9 @@ fun PickUpDateScreenContent(
     clickedColor: Color = colorResource(id = R.color.Purple740)
 ) {
     var buttonColor by remember { mutableStateOf(defaultColor) }
+    val options = pickDate()
+
+    val selectedOption = remember { mutableStateOf(options[0]) }
 
 CupCakeAppBar(currentScreen = CupcakeScreensTitles.Pickup)
     Column(
@@ -50,7 +61,11 @@ CupCakeAppBar(currentScreen = CupcakeScreensTitles.Pickup)
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        RadioGroup()
+        RadioGroup2(
+            options = options,
+            selectedOption =selectedOption.value ,
+            onOptionSelected ={selectedOption.value=it}
+        )
         HorizontalDivider(thickness = 1.dp)
         StatementSubtotal(modifier = Modifier.padding(top = 16.dp))
         Row(
