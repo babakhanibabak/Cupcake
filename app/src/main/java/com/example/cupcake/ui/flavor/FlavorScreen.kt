@@ -33,7 +33,10 @@ import com.example.cupcake.ui.theme.CupcakeTheme
 fun FlavorScreen(
     navController: NavHostController
 ) {
-    FlavorScreenContent(onNextClick = {navController.navigate(BaseRoute.Graph.Root)},)}
+    FlavorScreenContent(
+        //onNextClick = {navController.navigate(BaseRoute.Graph.Root)},
+onCancelClick = {navController.navigate(BaseRoute.Graph.MainScreen)}
+        )}
 
 @Composable
 fun FlavorScreenContent(
