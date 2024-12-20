@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import com.example.cupcake.ui.date.PickUpDateScreen
 import com.example.cupcake.ui.flavor.FlavorScreen
 import com.example.cupcake.ui.main.MainScreen
 import com.example.cupcake.ui.summary.OrderSummaryScreen
@@ -27,13 +28,23 @@ fun RootNavHost(
         ) {
             composable<BaseRoute.MainScreen.onNumberOfCupcake> {
                 FlavorScreen(
-                    navController=navController
+                    navController = navController
                 )
             }
-            composable<BaseRoute.OrderScreen>{
-               OrderSummaryScreen(
-                   navController=navController
-               )
+            composable<BaseRoute.FlavorScreen> {
+                FlavorScreen(
+                    navController = navController
+                )
+            }
+            composable<BaseRoute.OrderScreen> {
+                OrderSummaryScreen(
+                    navController = navController
+                )
+            }
+            composable<BaseRoute.PickUpDateScreen> {
+                PickUpDateScreen(
+                    navController = navController
+                )
             }
 
         }
