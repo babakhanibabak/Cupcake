@@ -4,22 +4,22 @@ import kotlinx.serialization.Serializable
 
 sealed class BaseRoute {
     sealed class Graph : BaseRoute() {
-        @kotlinx.serialization.Serializable
+        @Serializable
         data object Root : Graph()
 
-        @kotlinx.serialization.Serializable
+        @Serializable
         data object MainScreen : Graph()
     }
-@Serializable
+
     sealed class MainScreen : BaseRoute() {
-        @kotlinx.serialization.Serializable
+        @Serializable
         data object onNumberOfCupcake : MainScreen()
     }
 
-    @kotlinx.serialization.Serializable
+    @Serializable
     data object OrderScreen : BaseRoute()
 
-    @kotlinx.serialization.Serializable
+    @Serializable
     data object FlavorScreen : BaseRoute()
 
     @Serializable
