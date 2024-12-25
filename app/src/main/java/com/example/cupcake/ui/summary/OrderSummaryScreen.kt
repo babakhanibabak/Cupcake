@@ -34,7 +34,7 @@ fun OrderSummaryScreen(
     navController: NavHostController
 ) {
     OrderSummaryScreenContent(
-        onCancelClicked = {navController.navigate(BaseRoute.Graph.MainScreen)},
+        onCancelClicked = {navController.navigate(BaseRoute.MainScreen)},
 //        onSendOrderClicked = {navController.navigate(BaseRoute.Graph.Root)}
         )
 }

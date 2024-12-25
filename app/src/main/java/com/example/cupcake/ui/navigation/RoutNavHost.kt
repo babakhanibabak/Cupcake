@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.example.cupcake.ui.date.PickUpDateScreen
 import com.example.cupcake.ui.flavor.FlavorScreen
@@ -17,36 +16,26 @@ fun RootNavHost(
 ) {
     NavHost(
         navController = navController,
-        route = BaseRoute.Graph.Root::class,
-        startDestination = BaseRoute.Graph.MainScreen,
+        route = BaseRoute.Route::class,
+        startDestination = BaseRoute.MainScreen,
     ) {
         composable<BaseRoute.MainScreen> {
             MainScreen(navController = navController)
         }
-        navigation<BaseRoute.Graph.MainScreen>(
-            startDestination = BaseRoute.MainScreen.onNumberOfCupcake::class
-        ) {
-            composable<BaseRoute.MainScreen.onNumberOfCupcake> {
-                FlavorScreen(
-                    navController = navController
-                )
-            }
-            composable<BaseRoute.FlavorScreen> {
-                FlavorScreen(
-                    navController = navController
-                )
-            }
-            composable<BaseRoute.OrderScreen> {
-                OrderSummaryScreen(
-                    navController = navController
-                )
-            }
-            composable<BaseRoute.PickUpDateScreen> {
-                PickUpDateScreen(
-                    navController = navController
-                )
-            }
-
+        composable<BaseRoute.FlavorScreen> {
+            FlavorScreen(
+                navController = navController
+            )
+        }
+        composable<BaseRoute.OrderScreen> {
+            OrderSummaryScreen(
+                navController = navController
+            )
+        }
+        composable<BaseRoute.PickUpDateScreen> {
+            PickUpDateScreen(
+                navController = navController
+            )
         }
     }
 }

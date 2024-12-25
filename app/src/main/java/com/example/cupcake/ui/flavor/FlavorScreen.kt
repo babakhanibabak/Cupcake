@@ -35,7 +35,7 @@ fun FlavorScreen(
 ) {
     FlavorScreenContent(
         //onNextClick = {navController.navigate(BaseRoute.Graph.Root)},
-onCancelClick = {navController.navigate(BaseRoute.Graph.MainScreen)}
+onCancelClick = {navController.navigate(BaseRoute.MainScreen)}
         )}
 
 @Composable

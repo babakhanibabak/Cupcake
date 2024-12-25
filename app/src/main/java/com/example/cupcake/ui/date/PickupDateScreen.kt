@@ -35,7 +35,7 @@ fun PickUpDateScreen(
     navController: NavHostController
 ) {
     PickUpDateScreenContent(
-onCancelClick = {navController.navigate(BaseRoute.Graph.MainScreen)},
+onCancelClick = {navController.navigate(BaseRoute.MainScreen)},
         //onNextClick = {navController.navigate(BaseRoute.OrderScreen)}
     )
 }

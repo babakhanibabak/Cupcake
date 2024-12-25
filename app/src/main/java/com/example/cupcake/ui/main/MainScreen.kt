@@ -28,7 +28,7 @@ fun MainScreen(
     navController: NavHostController,
 ) {
     MainScreenContent(
-        onCupcakeClick = {navController.navigate(BaseRoute.Graph.Root)}
+        onCupcakeClick = {navController.navigate(BaseRoute.OrderScreen)}
     )
 }
 
