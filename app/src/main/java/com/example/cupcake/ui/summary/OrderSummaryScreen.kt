@@ -3,7 +3,6 @@ package com.example.cupcake.ui.summary
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -15,19 +14,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Text
 import com.example.cupcake.R
-import com.example.cupcake.data.OrderUiState
+import com.example.cupcake.ui.OrderUiState
 import com.example.cupcake.ui.component.CupCakeAppBar
 import com.example.cupcake.ui.component.CupcakeScreensTitles
 import com.example.cupcake.ui.component.MyButtons
 import com.example.cupcake.ui.component.StatementSubtotal
 import com.example.cupcake.ui.navigation.BaseRoute
-import com.example.cupcake.ui.theme.CupcakeTheme
 
 @Composable
 fun OrderSummaryScreen(
@@ -35,7 +31,8 @@ fun OrderSummaryScreen(
 ) {
     OrderSummaryScreenContent(
         onCancelClicked = {navController.navigate(BaseRoute.MainScreen)},
-//        onSendOrderClicked = {navController.navigate(BaseRoute.Graph.Root)}
+      // onSendOrderClicked = {navController.navigate(BaseRoute.)},
+        onNavigateUp = {navController.navigateUp()}
         )
 }
 @Composable
@@ -43,8 +40,9 @@ fun OrderSummaryScreenContent(
     modifier: Modifier = Modifier,
     onCancelClicked: () -> Unit={},
     onSendOrderClicked: (String, String) -> Unit={ s: String, s1: String -> },
+    onNavigateUp:() -> Unit
 ) {
-    val orderUiState=OrderUiState()
+    val orderUiState= OrderUiState()
     val resources = LocalContext.current.resources
     val numberOfCupCakes = resources.getQuantityString(
         R.plurals.cupcakes, orderUiState.quantity, orderUiState.quantity
@@ -63,7 +61,7 @@ fun OrderSummaryScreenContent(
         Pair(stringResource(id = R.string.flavor), orderUiState.flavor),
         Pair(stringResource(id = R.string.pickup_date), orderUiState.date)
     )
-    CupCakeAppBar(currentScreen = CupcakeScreensTitles.Summary)
+    CupCakeAppBar(currentScreen = CupcakeScreensTitles.Summary,  navigateUp = onNavigateUp)
     Column(
         modifier = modifier
             .padding(top = 100.dp, start = 16.dp, end = 16.dp, bottom = 8.dp)
