@@ -35,8 +35,9 @@ fun PickUpDateScreen(
     navController: NavHostController
 ) {
     PickUpDateScreenContent(
-onCancelClick = {navController.navigate(BaseRoute.MainScreen)},
-        //onNextClick = {navController.navigate(BaseRoute.OrderScreen)}
+        onCancelClick = { navController.navigate(BaseRoute.MainScreen) },
+        onNextClick = { navController.navigate(BaseRoute.OrderScreen) },
+        onNavigateUp = {navController.navigateUp()}
     )
 }
 
@@ -45,6 +46,7 @@ fun PickUpDateScreenContent(
     modifier: Modifier = Modifier,
     onNextClick: () -> Unit = {},
     onCancelClick: () -> Unit = {},
+    onNavigateUp: () -> Unit ={},
     defaultColor: Color = Color.White,
     clickedColor: Color = colorResource(id = R.color.Purple740)
 ) {
@@ -53,7 +55,7 @@ fun PickUpDateScreenContent(
 
     val selectedOption = remember { mutableStateOf(options[0]) }
 
-CupCakeAppBar(currentScreen = CupcakeScreensTitles.Pickup)
+    CupCakeAppBar(currentScreen = CupcakeScreensTitles.Pickup , navigateUp = onNavigateUp)
     Column(
         modifier = modifier
             .padding(top = 80.dp, start = 16.dp, end = 16.dp, bottom = 8.dp)
@@ -63,14 +65,14 @@ CupCakeAppBar(currentScreen = CupcakeScreensTitles.Pickup)
     ) {
         RadioGroup2(
             options = options,
-            selectedOption =selectedOption.value ,
-            onOptionSelected ={selectedOption.value=it}
+            selectedOption = selectedOption.value,
+            onOptionSelected = { selectedOption.value = it }
         )
         HorizontalDivider(thickness = 1.dp)
         StatementSubtotal(modifier = Modifier.padding(top = 16.dp))
         Row(
             modifier = Modifier
-                .padding(top = 380.dp)
+                .padding(top = 350.dp)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(10.dp),
             verticalAlignment = Alignment.CenterVertically
@@ -78,14 +80,18 @@ CupCakeAppBar(currentScreen = CupcakeScreensTitles.Pickup)
             MyButtons(
                 modifier = Modifier.weight(1f),
                 text = stringResource(id = R.string.Cancel),
-                onClick = {onCancelClick()
-                    buttonColor =clickedColor }
+                onClick = {
+                    onCancelClick()
+                    buttonColor = clickedColor
+                }
             )
             MyButtons(
                 modifier = Modifier.weight(1f),
                 text = stringResource(id = R.string.Next),
-                onClick = {onNextClick()
-                    buttonColor =clickedColor}
+                onClick = {
+                    onNextClick()
+                    buttonColor = clickedColor
+                }
             )
         }
     }
