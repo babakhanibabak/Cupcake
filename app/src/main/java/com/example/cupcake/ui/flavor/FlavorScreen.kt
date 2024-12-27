@@ -34,53 +34,60 @@ fun FlavorScreen(
     navController: NavHostController
 ) {
     FlavorScreenContent(
-        //onNextClick = {navController.navigate(BaseRoute.Graph.Root)},
-onCancelClick = {navController.navigate(BaseRoute.MainScreen)}
-        )}
+        onNextClick = { navController.navigate(BaseRoute.PickUpDateScreen) },
+        onCancelClick = { navController.navigate(BaseRoute.MainScreen) },
+        onNavigateUp = {navController.navigateUp()}
+    )
+}
 
 @Composable
 fun FlavorScreenContent(
     modifier: Modifier = Modifier,
     onNextClick: () -> Unit = {},
     onCancelClick: () -> Unit = {},
-    defaultColor:Color=Color.White,
-    clickedColor:Color= colorResource(id = R.color.Purple740)
+    onNavigateUp:() ->Unit={},
+    defaultColor: Color = Color.White,
+    clickedColor: Color = colorResource(id = R.color.Purple740)
 ) {
     var buttonColor by remember { mutableStateOf(defaultColor) }
-   CupCakeAppBar(currentScreen =CupcakeScreensTitles.Flavor )
-        Column(
-            modifier = modifier
-                .padding(top = 80.dp, start = 16.dp, end = 16.dp, bottom = 8.dp)
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally
+    CupCakeAppBar(currentScreen = CupcakeScreensTitles.Flavor, navigateUp = onNavigateUp)
+    Column(
+        modifier = modifier
+            .padding(top = 80.dp, start = 16.dp, end = 16.dp, bottom = 8.dp)
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        RadioGroup()
+        HorizontalDivider(thickness = 1.dp)
+        StatementSubtotal(modifier = Modifier.padding(top = 16.dp))
+        Row(
+            modifier = Modifier
+                .padding(top = 380.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(10.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            RadioGroup()
-            HorizontalDivider(thickness = 1.dp)
-            StatementSubtotal(modifier = Modifier.padding(top = 16.dp))
-            Row(
-                modifier = Modifier
-                    .padding(top = 380.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                MyButtons(
-                    modifier = Modifier.weight(1f),
-                    text = stringResource(id = R.string.Cancel),
-                    onClick = {onCancelClick()
-                        buttonColor =clickedColor }
-                )
-                MyButtons(
-                    modifier = Modifier.weight(1f),
-                    text = stringResource(id = R.string.Next),
-                    onClick = {onNextClick()
-                            buttonColor =clickedColor}
-                )
-            }
+            MyButtons(
+                modifier = Modifier.weight(1f),
+                text = stringResource(id = R.string.Cancel),
+                onClick = {
+                    onCancelClick()
+                    buttonColor = clickedColor
+                }
+            )
+            MyButtons(
+                modifier = Modifier.weight(1f),
+                text = stringResource(id = R.string.Next),
+                onClick = {
+                    onNextClick()
+                    buttonColor = clickedColor
+                }
+            )
         }
-
     }
+
+}
 
 
 @Preview
