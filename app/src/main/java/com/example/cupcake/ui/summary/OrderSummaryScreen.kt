@@ -9,12 +9,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Text
 import com.example.cupcake.R
@@ -23,21 +27,26 @@ import com.example.cupcake.ui.component.CupCakeAppBar
 import com.example.cupcake.ui.component.CupcakeScreensTitles
 import com.example.cupcake.ui.component.MyButtons
 import com.example.cupcake.ui.component.StatementSubtotal
+import com.example.cupcake.ui.main.MainViewModel
 import com.example.cupcake.ui.navigation.BaseRoute
 
 @Composable
 fun OrderSummaryScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: MainViewModel= hiltViewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsState()
     OrderSummaryScreenContent(
         onCancelClicked = {navController.navigate(BaseRoute.MainScreen)},
       // onSendOrderClicked = {navController.navigate(BaseRoute.)},
-        onNavigateUp = {navController.navigateUp()}
+        onNavigateUp = {navController.navigateUp()},
+        uiState =uiState
         )
 }
 @Composable
 fun OrderSummaryScreenContent(
     modifier: Modifier = Modifier,
+    uiState:OrderUiState,
     onCancelClicked: () -> Unit={},
     onSendOrderClicked: (String, String) -> Unit={ s: String, s1: String -> },
     onNavigateUp:() -> Unit
@@ -58,8 +67,8 @@ fun OrderSummaryScreenContent(
     val newOrder = stringResource(id = R.string.new_cupcake_order)
     val items = listOf(
         Pair(stringResource(R.string.quantity), numberOfCupCakes),
-        Pair(stringResource(id = R.string.flavor), orderUiState.flavor),
-        Pair(stringResource(id = R.string.pickup_date), orderUiState.date)
+        Pair(stringResource(id = R.string.flavor), uiState.flavor),
+        Pair(stringResource(id = R.string.pickup_date), uiState.date)
     )
     CupCakeAppBar(currentScreen = CupcakeScreensTitles.Summary,  navigateUp = onNavigateUp)
     Column(
@@ -75,7 +84,7 @@ fun OrderSummaryScreenContent(
             HorizontalDivider(thickness = 1.dp)
         }
         Spacer(modifier = Modifier.size(8.dp))
-        StatementSubtotal(modifier = Modifier.align(Alignment.End), subtotal = orderUiState.price)
+        StatementSubtotal(modifier = Modifier.align(Alignment.End), uiState = uiState)
 Column(
     modifier = modifier
         .padding(top = 400.dp)
