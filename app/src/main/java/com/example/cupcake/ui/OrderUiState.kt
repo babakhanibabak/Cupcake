@@ -1,6 +1,4 @@
-package com.example.cupcake.data
-
-import java.sql.Date
+package com.example.cupcake.ui
 
 data class OrderUiState(
     val quantity: Int = 0,
