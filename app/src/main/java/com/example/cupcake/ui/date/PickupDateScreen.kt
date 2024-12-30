@@ -77,7 +77,7 @@ fun PickUpDateScreenContent(
             onOptionSelected = { selectedOption.value = it }
         )
         HorizontalDivider(thickness = 1.dp)
-        StatementSubtotal(modifier = Modifier.padding(top = 16.dp), uiState =uiState)
+        StatementSubtotal(modifier = Modifier.padding(top = 16.dp), subtotal = uiState.price)
         Row(
             modifier = Modifier
                 .padding(top = 350.dp)
@@ -87,7 +87,7 @@ fun PickUpDateScreenContent(
         ) {
             MyButtons(
                 modifier = Modifier.weight(1f),
-                text = stringResource(id = R.string.Cancel),
+                text =  R.string.Cancel,
                 onClick = {
                     onCancelClick()
                     buttonColor = clickedColor
@@ -95,7 +95,7 @@ fun PickUpDateScreenContent(
             )
             MyButtons(
                 modifier = Modifier.weight(1f),
-                text = stringResource(id = R.string.Next),
+                text =R.string.Next,
                 onClick = {
                     onNextClick()
                     buttonColor = clickedColor
