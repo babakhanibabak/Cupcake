@@ -77,7 +77,7 @@ fun FlavorScreenContent(
             selectedOption =selectedOption.value ,
             onOptionSelected ={selectedOption.value=it} )
         HorizontalDivider(thickness = 1.dp)
-        StatementSubtotal(modifier = Modifier.padding(top = 16.dp),uiState)
+        StatementSubtotal(modifier = Modifier.padding(top = 16.dp),uiState.price)
         Row(
             modifier = Modifier
                 .padding(top = 300.dp)
