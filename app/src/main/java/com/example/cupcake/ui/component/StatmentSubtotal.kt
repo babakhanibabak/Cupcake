@@ -20,7 +20,7 @@ import java.util.Locale
 @Composable
 fun StatementSubtotal(
     modifier: Modifier = Modifier,
-    uiState: OrderUiState
+    subtotal: String
 
 ) {
     Row(
@@ -36,7 +36,7 @@ fun StatementSubtotal(
             fontSize = 25.sp
         )
         Text(
-            text = "$${String.format(Locale("%.2f"), uiState.price)}",
+            text = "$${String.format(Locale("%.2f"), subtotal)}",
             style = MaterialTheme.typography.bodyLarge,
             fontSize = 25.sp
         )
@@ -48,6 +48,6 @@ fun StatementSubtotal(
 @Composable
 private fun StatementSubtotalPreview() {
     CupcakeTheme {
-        StatementSubtotal(uiState = OrderUiState(price = "23.00"))
+        StatementSubtotal(subtotal = "23")
     }
 }
