@@ -3,6 +3,7 @@ package com.example.cupcake.ui.summary
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,9 +17,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Text
 import com.example.cupcake.R
@@ -29,6 +30,7 @@ import com.example.cupcake.ui.component.MyButtons
 import com.example.cupcake.ui.component.StatementSubtotal
 import com.example.cupcake.ui.main.MainViewModel
 import com.example.cupcake.ui.navigation.BaseRoute
+import com.example.cupcake.ui.theme.CupcakeTheme
 
 @Composable
 fun OrderSummaryScreen(
@@ -49,19 +51,20 @@ fun OrderSummaryScreenContent(
     uiState:OrderUiState,
     onCancelClicked: () -> Unit={},
     onSendOrderClicked: (String, String) -> Unit={ s: String, s1: String -> },
-    onNavigateUp:() -> Unit
+    onNavigateUp:() -> Unit={}
 ) {
-    val orderUiState= OrderUiState()
     val resources = LocalContext.current.resources
     val numberOfCupCakes = resources.getQuantityString(
-        R.plurals.cupcakes, orderUiState.quantity, orderUiState.quantity
+        R.plurals.cupcakes,
+        uiState.quantity,
+        uiState.quantity
     )
     val orderSummary = stringResource(
         id = R.string.order_details,
         numberOfCupCakes,
-        orderUiState.flavor,
-        orderUiState.date,
-        orderUiState.quantity
+        uiState.flavor,
+        uiState.date,
+        uiState.quantity
 
     )
     val newOrder = stringResource(id = R.string.new_cupcake_order)
@@ -84,7 +87,7 @@ fun OrderSummaryScreenContent(
             HorizontalDivider(thickness = 1.dp)
         }
         Spacer(modifier = Modifier.size(8.dp))
-        StatementSubtotal(modifier = Modifier.align(Alignment.End), uiState = uiState)
+        StatementSubtotal(modifier = Modifier.align(Alignment.End), uiState.price)
 Column(
     modifier = modifier
         .padding(top = 400.dp)
@@ -93,29 +96,29 @@ Column(
 
         MyButtons(
             modifier=Modifier.fillMaxWidth(),
-            text = stringResource(id = R.string.send),
-            onClick = { onSendOrderClicked(orderSummary, newOrder) })
+            text = R.string.send,
+            onClick = { onSendOrderClicked(newOrder,orderSummary) })
     MyButtons(
         modifier=Modifier.fillMaxWidth(),
-        text = stringResource(id = R.string.cancel),
+        text = R.string.cancel,
         onClick = onCancelClicked
     )
     }
 }
 }
 
-//
-//@Preview
-//@Composable
-//private fun OrderSummaryScreenPreview() {
-//    CupcakeTheme {
-//        OrderSummaryScreenContent(orderUiState = OrderUiState(
-//            0, "Text", "Text", "$300.00"
-//        ),
-//            onSendOrderClicked = { subject: String, summary: String -> },
-//            onCancelClicked = {},
-//            modifier = Modifier.fillMaxHeight()
-//        )
-//
-//    }
-//}
+
+@Preview
+@Composable
+private fun OrderSummaryScreenPreview() {
+    CupcakeTheme {
+        OrderSummaryScreenContent(uiState = OrderUiState(
+            0, "Text", "Text", "300.00"
+        ),
+            onSendOrderClicked = { subject: String, summary: String -> },
+            onCancelClicked = {},
+            modifier = Modifier.fillMaxHeight()
+        )
+
+    }
+}
