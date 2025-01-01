@@ -87,7 +87,7 @@ fun FlavorScreenContent(
         ) {
             MyButtons(
                 modifier = Modifier.weight(1f),
-                text = stringResource(id = R.string.Cancel),
+                text =  R.string.Cancel,
                 onClick = {
                     onCancelClick()
                     buttonColor = clickedColor
@@ -95,7 +95,7 @@ fun FlavorScreenContent(
             )
             MyButtons(
                 modifier = Modifier.weight(1f),
-                text = stringResource(id = R.string.Next),
+                text =  R.string.Next,
                 onClick = {
                     onNextClick()
                     buttonColor = clickedColor
