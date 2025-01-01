@@ -1,7 +1,7 @@
 package com.example.cupcake.ui.main
 
 import androidx.lifecycle.ViewModel
-import com.example.cupcake.data.OrderUiState
+import com.example.cupcake.ui.OrderUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
