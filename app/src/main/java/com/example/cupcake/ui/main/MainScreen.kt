@@ -14,9 +14,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.util.Pair
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.cupcake.R
+import com.example.cupcake.data.DataSource
+import com.example.cupcake.data.DataSource.quantityOptions
 import com.example.cupcake.ui.component.CupCakeAppBar
 import com.example.cupcake.ui.component.CupcakeScreensTitles
 import com.example.cupcake.ui.component.MyButtons
@@ -26,30 +29,22 @@ import com.example.cupcake.ui.theme.CupcakeTheme
 @Composable
 fun MainScreen(
     navController: NavHostController,
-    viewModel: MainViewModel = hiltViewModel()
+    viewModel: MainViewModel = hiltViewModel(),
+
 ) {
     MainScreenContent(
-        onOneCupcakeClick = {
-            viewModel.setQuantity(1)
+        quantityOptions = quantityOptions,
+        onCupcakeClick = {
             navController.navigate(BaseRoute.FlavorScreen)
-        },
-        onSixCupcakesClick = {
-            viewModel.setQuantity(6)
-            navController.navigate(BaseRoute.FlavorScreen)
-        },
-        onTwelveCupcakesClick = {
-            viewModel.setQuantity(12)
-            navController.navigate(BaseRoute.FlavorScreen)
-        },
+        }
     )
 }
 
 @Composable
 fun MainScreenContent(
     modifier: Modifier = Modifier,
-    onOneCupcakeClick: () -> Unit = {},
-    onSixCupcakesClick: () -> Unit = {},
-    onTwelveCupcakesClick: () -> Unit = {}
+    onCupcakeClick: (Int) -> Unit = {},
+    quantityOptions: List<Pair<Int, Int>> = emptyList(),
 ) {
     CupCakeAppBar(currentScreen = CupcakeScreensTitles.Flavor, canNavigateBack = false)
     Column(
@@ -64,27 +59,18 @@ fun MainScreenContent(
             modifier = Modifier.padding(top = 20.dp),
             text = stringResource(id = R.string.order_cupcake)
         )
+
+Column(modifier = Modifier.padding(top = 300.dp)) {
+    quantityOptions.forEach { item ->
         MyButtons(
-            modifier = Modifier
-                .padding(top = 300.dp)
-                .fillMaxWidth(),
-            text = stringResource(id = R.string.One_cupcake),
-            onClick = onOneCupcakeClick
+            text = item.first,
+            onClick = {
+                onCupcakeClick(item.second)
+            },
+            modifier = Modifier.fillMaxWidth()
         )
-        MyButtons(
-            modifier = Modifier
-                .padding(top = 8.dp)
-                .fillMaxWidth(),
-            text = stringResource(id = R.string.Six_cupcake),
-            onClick = onSixCupcakesClick
-        )
-        MyButtons(
-            modifier = Modifier
-                .padding(top = 8.dp)
-                .fillMaxWidth(),
-            text = stringResource(id = R.string.Twelve_cupcakes),
-            onClick = onTwelveCupcakesClick
-        )
+    }
+}
 
     }
 }
@@ -95,6 +81,8 @@ fun MainScreenContent(
 private fun MainScreenPreview() {
     CupcakeTheme {
         MainScreenContent(
+            quantityOptions = quantityOptions,
+            onCupcakeClick = {}
         )
     }
 }
