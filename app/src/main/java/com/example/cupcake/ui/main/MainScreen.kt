@@ -18,7 +18,6 @@ import androidx.core.util.Pair
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.cupcake.R
-import com.example.cupcake.data.DataSource
 import com.example.cupcake.data.DataSource.quantityOptions
 import com.example.cupcake.ui.component.CupCakeAppBar
 import com.example.cupcake.ui.component.CupcakeScreensTitles
@@ -34,7 +33,8 @@ fun MainScreen(
 ) {
     MainScreenContent(
         quantityOptions = quantityOptions,
-        onCupcakeClick = {
+        onCupcakeClick = {quantity ->
+            viewModel.setQuantity(quantity)
             navController.navigate(BaseRoute.FlavorScreen)
         }
     )
@@ -44,7 +44,7 @@ fun MainScreen(
 fun MainScreenContent(
     modifier: Modifier = Modifier,
     onCupcakeClick: (Int) -> Unit = {},
-    quantityOptions: List<Pair<Int, Int>> = emptyList(),
+    quantityOptions: List<Pair<Int, Int>> ,
 ) {
     CupCakeAppBar(currentScreen = CupcakeScreensTitles.Flavor, canNavigateBack = false)
     Column(
