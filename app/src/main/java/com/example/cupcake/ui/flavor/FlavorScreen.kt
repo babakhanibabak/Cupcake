@@ -72,10 +72,11 @@ fun FlavorScreenContent(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-       // RadioGroup()
-        RadioGroup2(options =options,
+        RadioGroup2(
+            options =options,
             selectedOption =selectedOption.value ,
-            onOptionSelected ={selectedOption.value=it} )
+            onOptionSelected ={selectedOption.value=it}
+        )
         HorizontalDivider(thickness = 1.dp)
         StatementSubtotal(modifier = Modifier.padding(top = 16.dp),uiState.price)
         Row(
