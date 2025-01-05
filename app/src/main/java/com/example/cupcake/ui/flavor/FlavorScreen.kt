@@ -74,7 +74,6 @@ fun FlavorScreenContent(
     ) {
         RadioGroup2(
             options =options,
-            selectedOption =selectedOption.value ,
             onOptionSelected ={selectedOption.value=it}
         )
         HorizontalDivider(thickness = 1.dp)
