@@ -25,8 +25,9 @@ import androidx.wear.compose.material.Text
 import com.example.cupcake.R
 import com.example.cupcake.ui.OrderUiState
 import com.example.cupcake.ui.component.CupCakeAppBar
+import com.example.cupcake.ui.component.CupCakeBaseScreen
 import com.example.cupcake.ui.component.CupcakeScreensTitles
-import com.example.cupcake.ui.component.MyButtons
+import com.example.cupcake.ui.component.CupCakeButton
 import com.example.cupcake.ui.component.StatementSubtotal
 import com.example.cupcake.ui.main.MainViewModel
 import com.example.cupcake.ui.navigation.BaseRoute
@@ -35,23 +36,24 @@ import com.example.cupcake.ui.theme.CupcakeTheme
 @Composable
 fun OrderSummaryScreen(
     navController: NavHostController,
-    viewModel: MainViewModel= hiltViewModel()
+    viewModel: MainViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
     OrderSummaryScreenContent(
-        onCancelClicked = {navController.navigate(BaseRoute.MainScreen)},
-      // onSendOrderClicked = {navController.navigate(BaseRoute.)},
-        onNavigateUp = {navController.navigateUp()},
-        uiState =uiState
-        )
+        onCancelClicked = { navController.navigate(BaseRoute.MainScreen) },
+        // onSendOrderClicked = {navController.navigate(BaseRoute.)},
+        onNavigateUp = { navController.navigateUp() },
+        uiState = uiState
+    )
 }
+
 @Composable
 fun OrderSummaryScreenContent(
     modifier: Modifier = Modifier,
-    uiState:OrderUiState,
-    onCancelClicked: () -> Unit={},
-    onSendOrderClicked: (String, String) -> Unit={ s: String, s1: String -> },
-    onNavigateUp:() -> Unit={}
+    uiState: OrderUiState,
+    onCancelClicked: () -> Unit = {},
+    onSendOrderClicked: (String, String) -> Unit = { _: String, _: String -> },
+    onNavigateUp: () -> Unit = {}
 ) {
     val resources = LocalContext.current.resources
     val numberOfCupCakes = resources.getQuantityString(
@@ -73,38 +75,47 @@ fun OrderSummaryScreenContent(
         Pair(stringResource(id = R.string.flavor), uiState.flavor),
         Pair(stringResource(id = R.string.pickup_date), uiState.date)
     )
-    CupCakeAppBar(currentScreen = CupcakeScreensTitles.Summary,  navigateUp = onNavigateUp)
-    Column(
-        modifier = modifier
-            .padding(top = 100.dp, start = 16.dp, end = 16.dp, bottom = 8.dp)
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        items.forEach { item ->
-            Text(text = item.first.uppercase())
-            Text(text = item.second, fontWeight = FontWeight.Bold)
-            HorizontalDivider(thickness = 1.dp)
+
+    CupCakeBaseScreen(
+        topBar = {
+            CupCakeAppBar(
+                currentScreen = CupcakeScreensTitles.Summary,
+                navigateUp = onNavigateUp,
+            )
         }
-        Spacer(modifier = Modifier.size(8.dp))
-        StatementSubtotal(modifier = Modifier.align(Alignment.End), uiState.price)
-Column(
-    modifier = modifier
-        .padding(top = 400.dp)
-        .fillMaxSize()) {
-
-
-        MyButtons(
-            modifier=Modifier.fillMaxWidth(),
-            text = R.string.send,
-            onClick = { onSendOrderClicked(newOrder,orderSummary) })
-    MyButtons(
-        modifier=Modifier.fillMaxWidth(),
-        text = R.string.cancel,
-        onClick = onCancelClicked
-    )
+    ) {
+        Column(
+            modifier = modifier
+                .padding(16.dp)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            items.forEach { item ->
+                Text(text = item.first.uppercase())
+                Text(text = item.second, fontWeight = FontWeight.Bold)
+                HorizontalDivider(thickness = 1.dp)
+            }
+            Spacer(modifier = Modifier.size(8.dp))
+            StatementSubtotal(modifier = Modifier.align(Alignment.End), uiState.price)
+            Column(
+                modifier = modifier
+                    .weight(1f)
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.Bottom,
+            ) {
+                CupCakeButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = R.string.send,
+                    onClick = { onSendOrderClicked(newOrder, orderSummary) })
+                CupCakeButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = R.string.cancel,
+                    onClick = onCancelClicked
+                )
+            }
+        }
     }
-}
 }
 
 
@@ -112,13 +123,13 @@ Column(
 @Composable
 private fun OrderSummaryScreenPreview() {
     CupcakeTheme {
-        OrderSummaryScreenContent(uiState = OrderUiState(
-            0, "Text", "Text", "300.00"
-        ),
-            onSendOrderClicked = { subject: String, summary: String -> },
+        OrderSummaryScreenContent(
+            uiState = OrderUiState(
+                0, "Text", "Text", "300.00"
+            ),
+            onSendOrderClicked = { _: String, _: String -> },
             onCancelClicked = {},
             modifier = Modifier.fillMaxHeight()
         )
-
     }
 }

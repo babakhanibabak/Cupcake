@@ -20,8 +20,9 @@ import androidx.navigation.NavHostController
 import com.example.cupcake.R
 import com.example.cupcake.data.DataSource.quantityOptions
 import com.example.cupcake.ui.component.CupCakeAppBar
+import com.example.cupcake.ui.component.CupCakeBaseScreen
 import com.example.cupcake.ui.component.CupcakeScreensTitles
-import com.example.cupcake.ui.component.MyButtons
+import com.example.cupcake.ui.component.CupCakeButton
 import com.example.cupcake.ui.navigation.BaseRoute
 import com.example.cupcake.ui.theme.CupcakeTheme
 
@@ -29,11 +30,10 @@ import com.example.cupcake.ui.theme.CupcakeTheme
 fun MainScreen(
     navController: NavHostController,
     viewModel: MainViewModel = hiltViewModel(),
-
 ) {
     MainScreenContent(
         quantityOptions = quantityOptions,
-        onCupcakeClick = {quantity ->
+        onCupcakeClick = { quantity ->
             viewModel.setQuantity(quantity)
             navController.navigate(BaseRoute.FlavorScreen)
         }
@@ -44,37 +44,48 @@ fun MainScreen(
 fun MainScreenContent(
     modifier: Modifier = Modifier,
     onCupcakeClick: (Int) -> Unit = {},
-    quantityOptions: List<Pair<Int, Int>> ,
+    quantityOptions: List<Pair<Int, Int>>,
 ) {
-    CupCakeAppBar(currentScreen = CupcakeScreensTitles.Flavor, canNavigateBack = false)
-    Column(
-        modifier = modifier
-            .padding(top = 100.dp, start = 16.dp, end = 16.dp, bottom = 8.dp)
-            .fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+    CupCakeBaseScreen(
+        topBar = {
+            CupCakeAppBar(
+                currentScreen = CupcakeScreensTitles.Flavor,
+                canNavigateBack = false,
+            )
+        }
     ) {
-        Image(painter = painterResource(id = R.drawable.cake), contentDescription = "")
-        Text(
-            modifier = Modifier.padding(top = 20.dp),
-            text = stringResource(id = R.string.order_cupcake)
-        )
-
-Column(modifier = Modifier.padding(top = 300.dp)) {
-    quantityOptions.forEach { item ->
-        MyButtons(
-            text = item.first,
-            onClick = {
-                onCupcakeClick(item.second)
-            },
-            modifier = Modifier.fillMaxWidth()
-        )
+        Column(
+            modifier = modifier
+                .padding(16.dp)
+                .fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.cake),
+                contentDescription = "",
+            )
+            Text(
+                modifier = Modifier.padding(top = 20.dp),
+                text = stringResource(id = R.string.order_cupcake),
+            )
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.Bottom,
+            ) {
+                quantityOptions.forEach { item ->
+                    CupCakeButton(
+                        text = item.first,
+                        onClick = {
+                            onCupcakeClick(item.second)
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+            }
+        }
     }
 }
-
-    }
-}
-
 
 @Preview
 @Composable
@@ -82,7 +93,7 @@ private fun MainScreenPreview() {
     CupcakeTheme {
         MainScreenContent(
             quantityOptions = quantityOptions,
-            onCupcakeClick = {}
+            onCupcakeClick = {},
         )
     }
 }

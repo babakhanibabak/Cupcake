@@ -18,20 +18,17 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cupcake.R
-import com.example.cupcake.ui.theme.CupcakeTheme
 
 @Composable
-fun MyButtons(
-    modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues(),
+fun CupCakeButton(
     @StringRes text: Int,
     onClick: () -> Unit,
-    shape: Shape=RoundedCornerShape(15.dp),
-    color: Color?=null
+    modifier: Modifier = Modifier,
+    contentPadding: PaddingValues = PaddingValues(),
+    shape: Shape = RoundedCornerShape(15.dp),
 ) {
     Button(
         onClick = onClick,
@@ -46,21 +43,12 @@ fun MyButtons(
         ) {
             Text(
                 text = stringResource(id = text),
-                style = TextStyle(fontFamily = FontFamily.Serif, color = Color.White, fontSize = 20.sp)
+                style = TextStyle(
+                    fontFamily = FontFamily.Serif,
+                    color = Color.White,
+                    fontSize = 20.sp
+                )
             )
         }
     }
 }
-//
-//@Preview
-//@Composable
-//private fun MyButtonsPreview() {
-//    CupcakeTheme {
-//        MyButtons(
-//            text = stringResource(id = R.string.One_cupcake),
-//            onClick = {},
-//            shape = RoundedCornerShape(15.dp),
-//           color = Color.Blue
-//        )
-//    }
-//}
