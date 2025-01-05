@@ -27,7 +27,7 @@ import com.example.cupcake.ui.component.CupCakeAppBar
 import com.example.cupcake.ui.component.CupCakeBaseScreen
 import com.example.cupcake.ui.component.CupcakeScreensTitles
 import com.example.cupcake.ui.component.CupCakeButton
-import com.example.cupcake.ui.component.RadioGroup2
+import com.example.cupcake.ui.component.RadioGroup
 import com.example.cupcake.ui.component.StatementSubtotal
 import com.example.cupcake.ui.component.pickDate
 import com.example.cupcake.ui.main.MainViewModel
@@ -79,7 +79,7 @@ fun PickUpDateScreenContent(
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            RadioGroup2(
+            RadioGroup(
                 options = options,
                 onOptionSelected = { selectedOption.value = it }
             )
