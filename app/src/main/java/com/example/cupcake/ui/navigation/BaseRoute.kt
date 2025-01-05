@@ -11,11 +11,12 @@ sealed class BaseRoute {
     data object MainScreen : BaseRoute()
 
     @Serializable
-    data object OrderScreen : BaseRoute()
-
-    @Serializable
     data object FlavorScreen : BaseRoute()
 
     @Serializable
     data object PickUpDateScreen : BaseRoute()
+
+    @Serializable
+    data object OrderScreen : BaseRoute()
 }
+

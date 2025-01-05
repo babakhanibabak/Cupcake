@@ -1,5 +1,6 @@
 package com.example.cupcake.ui.component
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -21,8 +22,8 @@ import com.example.cupcake.ui.theme.CupcakeTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CupCakeAppBar(
+    @StringRes titleResId: Int?,
     modifier: Modifier = Modifier,
-    currentScreen: CupcakeScreensTitles,
     canNavigateBack: Boolean = true,
     navigateUp: () -> Unit = {}
 ) {
@@ -34,16 +35,16 @@ fun CupCakeAppBar(
                 IconButton(onClick = navigateUp) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = ""
+                        contentDescription = "",
                     )
                 }
             }
         },
         title = {
             Text(
-                stringResource(currentScreen.title),
+                text = titleResId?.let { stringResource(it) } ?: "",
                 modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
         }
     )
@@ -53,6 +54,6 @@ fun CupCakeAppBar(
 @Composable
 private fun CupCakeAppBarPreview() {
     CupcakeTheme {
-        CupCakeAppBar(currentScreen = CupcakeScreensTitles.Start)
+        CupCakeAppBar(titleResId = R.string.app_name)
     }
 }

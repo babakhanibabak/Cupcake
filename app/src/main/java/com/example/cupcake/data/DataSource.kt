@@ -11,12 +11,10 @@ object DataSource {
         R.string.salted_caramel,
         R.string.coffee
     )
-
     val quantityOptions = listOf(
         Pair(R.string.One_cupcake, 1),
         Pair(R.string.Six_cupcake, 6),
         Pair(R.string.Twelve_cupcakes, 12)
-
     )
 }
 

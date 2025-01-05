@@ -27,6 +27,7 @@ fun CupCakeButton(
     @StringRes text: Int,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    enabled: Boolean = true,
     contentPadding: PaddingValues = PaddingValues(),
     shape: Shape = RoundedCornerShape(15.dp),
 ) {
@@ -34,7 +35,8 @@ fun CupCakeButton(
         onClick = onClick,
         modifier = modifier,
         shape = shape,
-        colors = ButtonDefaults.buttonColors(colorResource(id = R.color.Purple740))
+        colors = ButtonDefaults.buttonColors(colorResource(id = R.color.Purple740)),
+        enabled = enabled,
     ) {
         Row(
             modifier = Modifier.padding(contentPadding),

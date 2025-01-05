@@ -1,7 +1,6 @@
-package com.example.cupcake.ui.main
+package com.example.cupcake.ui.order
 
 import androidx.lifecycle.ViewModel
-import com.example.cupcake.ui.OrderUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +13,7 @@ import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor() : ViewModel() {
+class OrderViewModel @Inject constructor() : ViewModel() {
 
     private val PRICE_PER_CUPCAKE = 2.00
     private val PRICE_FOR_SAME_DAY_PICKUP = 3.00

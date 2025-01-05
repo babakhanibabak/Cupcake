@@ -13,15 +13,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.cupcake.R
-import com.example.cupcake.ui.OrderUiState
 import com.example.cupcake.ui.theme.CupcakeTheme
 import java.util.Locale
 
 @Composable
 fun StatementSubtotal(
     modifier: Modifier = Modifier,
-    subtotal: String
-
+    subtotal: String,
 ) {
     Row(
         modifier = modifier
@@ -36,18 +34,17 @@ fun StatementSubtotal(
             fontSize = 25.sp
         )
         Text(
-            text = "$${String.format(Locale("%.2f"), subtotal)}",
+            text = String.format(Locale("%.2f"), subtotal),
             style = MaterialTheme.typography.bodyLarge,
             fontSize = 25.sp
         )
     }
 }
 
-
-@Preview
+@Preview(showBackground = true)
 @Composable
 private fun StatementSubtotalPreview() {
     CupcakeTheme {
-        StatementSubtotal(subtotal = "23")
+        StatementSubtotal(subtotal = "$23")
     }
 }
