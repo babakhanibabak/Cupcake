@@ -56,7 +56,7 @@ fun OrderSummaryScreen(
             .padding(16.dp)
             .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.Start
     ) {
         items.forEach { item ->
             Text(text = item.first.uppercase())
