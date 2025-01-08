@@ -1,5 +1,6 @@
 package com.example.cupcake.ui
 
+import android.content.Intent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -97,8 +98,17 @@ fun MainScreen(
                     onCancelClicked = {
                         navController.cancelOrderAndNavigateToStart(viewModel)
                     },
-                    onSendOrderClicked = { _, _ ->
+                    onSendOrderClicked = { context, subject, message ->
                         // TODO: implement sending order
+                        val intent = Intent(Intent.ACTION_SEND).apply {
+                            type = "text/plain"
+                            putExtra(Intent.EXTRA_SUBJECT, subject)
+                            putExtra(Intent.EXTRA_TEXT, message)
+                        }
+                        // Verify there's an app that can handle the intent
+                        if (intent.resolveActivity(context.packageManager) != null) {
+                            context.startActivity(intent)
+                        }
                     }
                 )
             }
