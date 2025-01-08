@@ -18,8 +18,10 @@ class OrderViewModel @Inject constructor() : ViewModel() {
     private val PRICE_PER_CUPCAKE = 2.00
     private val PRICE_FOR_SAME_DAY_PICKUP = 3.00
 
+
     private val _uiState = MutableStateFlow(OrderUiState(pickupOptions = pickupOptions()))
     val uiState: StateFlow<OrderUiState> = _uiState.asStateFlow()
+
 
     private fun pickupOptions(): List<String> {
         val dateOptions = mutableListOf<String>()
@@ -41,6 +43,7 @@ class OrderViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+
     fun setDate(pickupDate: String) {
         _uiState.update { currentState ->
             currentState.copy(
@@ -49,6 +52,7 @@ class OrderViewModel @Inject constructor() : ViewModel() {
             )
         }
     }
+
 
     fun setQuantity(numberCupcakes: Int) {
         _uiState.update { currentState ->
