@@ -1,5 +1,6 @@
 package com.example.cupcake.ui.order
 
+import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -28,8 +29,9 @@ fun OrderSummaryScreen(
     modifier: Modifier = Modifier,
     uiState: OrderUiState,
     onCancelClicked: () -> Unit = {},
-    onSendOrderClicked: (String, String) -> Unit = { _: String, _: String -> },
+    onSendOrderClicked: (Context, String, String) -> Unit = { _:Context,_: String, _: String -> },
 ) {
+    val context = LocalContext.current
     val resources = LocalContext.current.resources
     val numberOfCupCakes = resources.getQuantityString(
         R.plurals.cupcakes,
@@ -74,7 +76,7 @@ fun OrderSummaryScreen(
             CupCakeButton(
                 modifier = Modifier.fillMaxWidth(),
                 text = R.string.send,
-                onClick = { onSendOrderClicked(newOrder, orderSummary) })
+                onClick = { onSendOrderClicked(context,newOrder, orderSummary) })
             CupCakeButton(
                 modifier = Modifier.fillMaxWidth(),
                 text = R.string.cancel,
@@ -93,7 +95,7 @@ private fun OrderSummaryScreenPreview() {
             uiState = OrderUiState(
                 0, "Text", "Text", "300.00"
             ),
-            onSendOrderClicked = { _: String, _: String -> },
+            onSendOrderClicked = {_:Context, _: String, _: String -> },
             onCancelClicked = {},
             modifier = Modifier.fillMaxHeight()
         )
